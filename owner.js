@@ -52,7 +52,7 @@
   }
 
   function render(root, page) {
-    root.innerHTML = `<div class="owner-shell"><aside class="owner-sidebar"><strong>Gestão</strong><nav aria-label="Páginas da plataforma">${nav.map(([key,label]) => `<a href="#/gestao/${key}" ${key === page ? 'aria-current="page"' : ''}>${label}</a>`).join('')}</nav><div class="owner-profile"><span>TV</span><div><strong>Tarik Villalobos</strong><small>Proprietário</small></div></div></aside><div class="owner-main">${content(page)}</div></div>`;
+    root.innerHTML = `<div class="owner-shell"><aside class="owner-sidebar"><strong>Gestão</strong><nav aria-label="Páginas da plataforma">${nav.map(([key,label]) => `<a href="#/gestao/${key}" ${key === page ? 'aria-current="page"' : ''}>${label}</a>`).join('')}<a href="#/" class="owner-exit">Sair da gestão</a></nav><div class="owner-profile"><span>TV</span><div><strong>Tarik Villalobos</strong><small>Proprietário</small></div></div></aside><div class="owner-main">${content(page)}</div></div>`;
     const input = root.querySelector('#owner-search');
     input?.addEventListener('input', () => { const start = input.selectionStart; state.search = input.value; render(root,page); const next = root.querySelector('#owner-search'); next.focus(); next.setSelectionRange(start,start); });
     root.querySelectorAll('[data-category]').forEach(button => button.addEventListener('click', () => { state.category = button.dataset.category; render(root,page); }));
