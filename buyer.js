@@ -40,7 +40,7 @@
         break;
       case 'retirada':
         if (!count()) { location.hash = link('produtos'); return; }
-        content = `<div class="success-icon">✓</div><p class="overline">PAGAMENTO SIMULADO</p><h2>${count()} ${count() === 1 ? 'compartimento aberto' : 'compartimentos abertos'}</h2><p class="muted">Retire cada item e feche as portinhas ao terminar.</p><div class="info-card"><strong>Pedido de demonstração #A-1042</strong><span>30/09 · 14:32</span></div><div class="receipt">${items().map(product => `<div><span class="slot">${product.slot}</span><span>${product.name} × ${state.quantities[product.id]}</span><b>${money(product.price * state.quantities[product.id])}</b></div>`).join('')}</div><div class="totals"><div class="totals__grand"><span>Total simulado · ${state.payment}</span><strong>${money(total())}</strong></div></div>${button('Nova compra', 'produtos', 'secondary')}`;
+        content = `<div class="success-icon">✓</div><p class="overline">PAGAMENTO SIMULADO</p><h2>${count()} ${count() === 1 ? 'compartimento aberto' : 'compartimentos abertos'}</h2><p class="muted">Retire cada item e feche as portinhas ao terminar.</p><div class="info-card"><strong>Pedido de demonstração #A-1042</strong><span>30/09 · 14:32</span></div><div class="receipt">${items().map(product => `<div><span class="slot">${product.slot}</span><span>${product.name} × ${state.quantities[product.id]}</span><b>${money(product.price * state.quantities[product.id])}</b></div>`).join('')}</div><div class="totals"><div class="totals__grand"><span>Total simulado · ${state.payment}</span><strong>${money(total())}</strong></div></div><a class="button secondary" id="new-purchase" href="${link('produtos')}">Nova compra</a>`;
         break;
       default: location.hash = link('inicio'); return;
     }
@@ -57,6 +57,7 @@
       try { await navigator.clipboard.writeText('PIX-DEMONSTRACAO-SEM-VALOR'); state.copied = true; } catch { state.copied = false; }
       render(root, page);
     });
+    root.querySelector('#new-purchase')?.addEventListener('click', () => { state.quantities = {}; state.category = 'Todos'; state.payment = 'Pix'; state.copied = false; });
   }
 
   window.Demo.register('comprador', render);

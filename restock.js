@@ -10,7 +10,7 @@
     { slot: 'D3', product: 'Sabão em pó 400 g', price: 7.90 },
     { slot: 'E2', product: 'Alvejante 500 ml', price: 6.90 }
   ];
-  const state = { done: new Map(plan.slice(0,3).map(item => [item.slot,item.product])), problems: new Set(), current: 'B4', selected: 'Sabão líquido 500 ml' };
+  const state = { done: new Map(), problems: new Set(), current: 'A1', selected: 'Amaciante 500 ml' };
   const options = [...new Set(plan.map(item => item.product))];
   const money = value => value.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
   const remaining = () => plan.filter(item => !state.done.has(item.slot) && !state.problems.has(item.slot));
@@ -42,8 +42,9 @@
     root.querySelector('#restock-product')?.addEventListener('change', event => { state.selected = event.target.value; });
     root.querySelector('#confirm-restock')?.addEventListener('click', () => { state.done.set(state.current,state.selected); location.hash = link('compartimentos'); });
     root.querySelector('#report-problem')?.addEventListener('click', () => { state.problems.add(state.current); location.hash = link('compartimentos'); });
-    root.querySelector('#restart-restock')?.addEventListener('click', () => { state.done = new Map(plan.slice(0,3).map(item => [item.slot,item.product])); state.problems.clear(); state.current = 'B4'; state.selected = 'Sabão líquido 500 ml'; location.hash = link('inicio'); });
+    root.querySelector('#restart-restock')?.addEventListener('click', () => { state.done.clear(); state.problems.clear(); state.current = 'A1'; state.selected = 'Amaciante 500 ml'; location.hash = link('inicio'); });
   }
 
+  window.Demo.restock = { remaining: () => remaining().map(item => item.slot), completed: () => state.done.size };
   window.Demo.register('abastecimento',render);
 })();
