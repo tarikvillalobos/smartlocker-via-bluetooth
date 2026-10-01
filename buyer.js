@@ -1,12 +1,5 @@
 (() => {
-  const products = [
-    { id: 'amaciante', name: 'Amaciante 500 ml', category: 'Lavanderia', price: 8.90, stock: 4, icon: '🧴', slot: 'A2' },
-    { id: 'sabao', name: 'Sabão líquido 500 ml', category: 'Lavanderia', price: 9.90, stock: 3, icon: '🫧', slot: 'B1' },
-    { id: 'sabonete', name: 'Sabonete 90 g', category: 'Higiene', price: 3.50, stock: 6, icon: '🧼', slot: 'C1' },
-    { id: 'po', name: 'Sabão em pó 400 g', category: 'Lavanderia', price: 7.90, stock: 2, icon: '📦', slot: 'D1' },
-    { id: 'alvejante', name: 'Alvejante 500 ml', category: 'Limpeza', price: 6.90, stock: 2, icon: '🧴', slot: 'E2' },
-    { id: 'multiuso', name: 'Limpador multiuso', category: 'Limpeza', price: 5.90, stock: 0, icon: '✨', slot: 'E4' }
-  ];
+  const products = window.Demo.catalog.filter(product => product.showInBuyer);
   const state = { quantities: {}, category: 'Todos', payment: 'Pix', copied: false };
   const money = value => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const items = () => products.filter(product => state.quantities[product.id]);
