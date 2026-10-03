@@ -14,7 +14,7 @@
   const themeButton = () => `<button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema ${themeLabel()}"><span>Tema ${themeLabel()}</span></button>`;
   function applyTheme(theme) {
     document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#101712' : '#f7f8f5');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#181818' : '#f7f8f5');
     document.querySelectorAll('[data-theme-toggle]').forEach(button => { button.setAttribute('aria-label', `Ativar tema ${themeLabel()}`); button.querySelector('span').textContent = `Tema ${themeLabel()}`; });
   }
   applyTheme(['light','dark'].includes(themePreference) ? themePreference : themeMedia.matches ? 'dark' : 'light');
