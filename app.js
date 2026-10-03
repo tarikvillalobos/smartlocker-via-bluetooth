@@ -7,12 +7,25 @@
     abastecimento: { label: 'App de abastecimento', description: 'Visitas, compartimentos e reposição.' }
   };
   const views = {};
+  const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+  let themePreference = null;
+  try { themePreference = localStorage.getItem('smartlocker-theme'); } catch {}
+  const themeLabel = () => document.documentElement.dataset.theme === 'dark' ? 'claro' : 'escuro';
+  const themeButton = () => `<button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema ${themeLabel()}"><span>Tema ${themeLabel()}</span></button>`;
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#101712' : '#f7f8f5');
+    document.querySelectorAll('[data-theme-toggle]').forEach(button => { button.setAttribute('aria-label', `Ativar tema ${themeLabel()}`); button.querySelector('span').textContent = `Tema ${themeLabel()}`; });
+  }
+  applyTheme(['light','dark'].includes(themePreference) ? themePreference : themeMedia.matches ? 'dark' : 'light');
+  document.addEventListener('click', event => { if (!event.target.closest('[data-theme-toggle]')) return; themePreference = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; applyTheme(themePreference); try { localStorage.setItem('smartlocker-theme',themePreference); } catch {} });
+  themeMedia.addEventListener('change', event => { if (!['light','dark'].includes(themePreference)) applyTheme(event.matches ? 'dark' : 'light'); });
 
   function render() {
     const [section, page = 'inicio'] = location.hash.replace(/^#\/?/, '').split('/');
     if (!sections[section]) {
       root.className = 'welcome';
-      root.innerHTML = home;
+      root.innerHTML = themeButton() + home;
       document.title = 'Armário Inteligente · Demonstração';
       return;
     }
@@ -25,6 +38,7 @@
         <nav class="demo-header__nav" aria-label="Experiências">
           ${Object.entries(sections).map(([key, value]) => `<a href="#/${key}" ${section === key ? 'aria-current="page"' : ''}>${value.label}</a>`).join('')}
         </nav>
+        ${themeButton()}
       </header>
       <div class="demo-body" id="demo-body"></div>`;
     document.title = `${current.label} · Armário Inteligente`;
