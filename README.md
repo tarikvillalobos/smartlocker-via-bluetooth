@@ -1,11 +1,11 @@
-# Armário Inteligente — demonstração
+# Smart Locker — Demo
 
-Protótipo HTML navegável com três experiências:
+An interactive HTML prototype with three experiences:
 
-- **App do comprador:** conexão simulada, catálogo, carrinho, pagamento simulado e retirada.
-- **Plataforma de gestão:** visão geral, quatro lojas com um armário cada, produtos com custo, preço ao cliente, lucro e margem, abastecimento e vendas filtráveis por loja e armário, usuários e configurações.
-- **App de abastecimento:** visita simulada, reposição por compartimento e resumo.
+- **Buyer app:** simulated connection, catalog, shopping cart, simulated payment, and pickup.
+- **Management platform:** dashboard, four stores with one locker each, products with cost, customer price, profit and margin, restocking and sales filtered by store and locker, users, and settings.
+- **Restocking app:** simulated visits, replenishment by compartment, and a summary.
 
-Abra `index.html` no navegador ou rode `python3 -m http.server 8000` nesta pasta e acesse `http://localhost:8000`.
+Open `index.html` in your browser, or run `python3 -m http.server 8000` from this directory and visit `http://localhost:8000`.
 
-Tudo funciona localmente, sem dependências. Bluetooth, pagamentos, vendas e dados operacionais são ilustrativos. Os preços editados na gestão aparecem no app do comprador durante a mesma sessão. O app de abastecimento simula a visita ao Armário 02; a gestão exibe os quatro armários. As alterações da sessão são reiniciadas ao recarregar a página.
+Everything runs locally without dependencies. Bluetooth, payments, sales, and operational data are simulated. Prices edited in the management platform appear in the buyer app during the same session. The restocking app simulates a visit to Locker 02; the management platform shows all four lockers. Session data resets when you reload the page.
