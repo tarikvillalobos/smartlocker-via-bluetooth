@@ -1,5 +1,7 @@
 # Smart Locker — Demo
 
+[English](README.md) | [Português (Brasil)](README.pt-BR.md)
+
 An interactive HTML prototype with three experiences:
 
 - **Buyer app:** simulated connection, catalog, shopping cart, simulated payment, and pickup.
